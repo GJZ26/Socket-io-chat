@@ -5,6 +5,11 @@ const socket = io();
 const send = document.getElementById("send");
 const message = document.getElementById("text-input");
 const fileTrigger = document.getElementById("file-btn");
+const login = document.getElementById('login');
+const instruction = document.getElementById("instruction");
+const username = document.getElementById("username");
+const popup = document.getElementById("modal");
+const chats = document.getElementById("chats-list")
 
 let DataURL;
 
@@ -31,7 +36,6 @@ function sendMessage(event) {
     const tags = document.getElementsByClassName("mine")
 
     let info = {
-        user: "Juano Perez",
         date: `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`,
         message: content,
         img: DataURL
@@ -55,8 +59,7 @@ function sendMessage(event) {
 
     if (info.img !== undefined) {
         const imagen = document.createElement("img")
-        imagen.classList.add("attach")
-        imagen.classList.add("self")
+
         imagen.src = info.img
         allMessage.appendChild(imagen)
     }
@@ -111,16 +114,17 @@ socket.on("message", (data) => {
     bubble_message.classList.add("receive");
     bubble_message.textContent = data.message;
 
-    if (tags.length > 0) {
-        allMessage.removeChild(tags[0])
-    }
 
     if (data.img !== undefined) {
         const imagen = document.createElement("img")
-        imagen.classList.add("attach")
-        imagen.classList.add("receive")
+        const bubble_image = document.createElement("div")
+        bubble_image.classList.add("message");
+        bubble_image.classList.add("receive");
+        bubble_image.classList.add("img");
+
         imagen.src = data.img
-        allMessage.appendChild(imagen)
+        bubble_image.appendChild(imagen)
+        allMessage.appendChild(bubble_image)
     }
 
     if (data.message !== "") {
@@ -131,10 +135,20 @@ socket.on("message", (data) => {
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
 })
 
-function changeRoom(element){
+function changeRoom(element) {
     const focus = document.getElementsByClassName('focus')
     focus[0].classList.toggle('focus')
     element.classList.toggle('focus')
+}
+
+function enter(e) {
+    e.preventDefault();
+    if (username.value.trim() === "") {
+        instruction.textContent = "The user name must not be empty"
+        return
+    }
+    document.body.removeChild(popup);
+    socket.emit('register', username.value)
 }
 
 socket.on("disconnect", () => {
@@ -143,10 +157,43 @@ socket.on("disconnect", () => {
 
 socket.on("connect", () => {
     const chats = document.getElementsByClassName('chat');
-    for(let i = 0; i < chats.length ; i++){
-        chats[i].addEventListener('click',()=>{changeRoom(chats[i])})
+    for (let i = 0; i < chats.length; i++) {
+        chats[i].addEventListener('click', () => { changeRoom(chats[i]) })
     }
     log.textContent = "Connection established"
+})
+
+socket.on("register", (info) => {
+    const cht = document.createElement('div')
+    cht.classList.add("chat")
+    cht.id = info.socket
+
+    const stt = document.createElement('span')
+    stt.classList.add("status")
+    stt.classList.add("active")
+
+    const usr = document.createElement('h1')
+    usr.classList.add("chat-user")
+    usr.appendChild(stt)
+    usr.append(info.username)
+
+    const msg = document.createElement('span')
+    msg.classList.add("message-preview")
+    msg.textContent = info.lastMessage
+
+    cht.appendChild(usr)
+    cht.appendChild(msg)
+
+    cht.onclick = () => changeRoom(cht)
+
+    chats.appendChild(cht)
+})
+
+socket.on("left",(info)=>{
+    console.log(info)
+    const cha = document.getElementById(info.socket)
+    chats.removeChild(cha)
+    log.textContent = `${info.username} left`
 })
 
 send.addEventListener("click", (e) => {
@@ -176,3 +223,5 @@ attach.addEventListener('change', (e) => {
     fileTrigger.classList.toggle('attached');
     reader.readAsDataURL(file);
 });
+
+login.addEventListener('submit', (e) => enter(e))

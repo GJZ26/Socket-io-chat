@@ -1,6 +1,6 @@
 console.log("Socket.io Chat - Initializing");
 
-import express  from "express";
+import express from "express";
 import http from 'http';
 import { Server } from "socket.io";
 
@@ -12,30 +12,56 @@ const io = new Server(server)
 // Preferencias del servidor
 const port = 3000;
 const dir = process.cwd() // <- Para almacenar directorio raíz del proyecto,
-                          //    sin tener que usar __dirname de CommonJS
+//    sin tener que usar __dirname de CommonJS
 
 const users = {}
 
-app.get("/style.css",(req,res)=>{
+app.get("/style.css", (req, res) => {
     res.sendFile(dir + "/views/style.css")
 })
 
-app.get("/client.js", (req,res)=>{
+app.get("/client.js", (req, res) => {
     res.sendFile(dir + "/views/client.js")
 })
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.sendFile(dir + "/views/")
 })
 
-io.on('connection',(socket)=>{
+io.on('connection', (socket) => {
     console.log("A user connect");
-    socket.on("message",(msg)=>{
-        socket.broadcast.emit("message",msg)
+
+    socket.on("message", (msg) => {
+        socket.broadcast.emit("message", { message: msg.message, date: msg.date, img: msg.img, user: users[socket.id].username })
     })
+
+    socket.on('register', (username) => {
+
+        let last = `Say hi to ${username}`;
+
+        if (users[socket.id]) {
+            last = users[socket.id].lastMessage
+        }
+
+        users[socket.id] = {
+            socket: socket.id,
+            status: 1,
+            lastMessage: last,
+            username: username
+        }
+        socket.broadcast.emit("register", users[socket.id])
+    })
+
+    socket.on("disconnect", () => {
+        if (users[socket.id]) {
+            socket.broadcast.emit("left", users[socket.id])
+            delete users[socket.id]
+        }
+    })
+
 })
 
 
-server.listen(port,(req,res)=>{
-    console.log("Server running on: http://localhost:"+port)
+server.listen(port, (req, res) => {
+    console.log("Server running on: http://localhost:" + port)
 })

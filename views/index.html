@@ -11,28 +11,28 @@
 </head>
 
 <body>
+    <div id="modal" class="modal-container">
+        <div class="modal">
+            <form class="login" id="login">
+                <label id="instruction" for="username">Set your username</label>
+                <input autocomplete="off" type="text" id="username" class="username">
+                <button type="submit" class="send">Enter</button>
+            </form>
+        </div>
+    </div>
     <header>
         <h1 class="project-name"><strong>Socket.io</strong> - Real Time Chat </h1>
-        <span class="repo"><a href="https://github.com/GJZ26/Socket-io-chat" target="">GitHub Source</a></span>
+        <span class="repo"><a href="https://github.com/GJZ26/Socket-io-chat" target="__blank">GitHub Source</a></span>
     </header>
     <main>
-        <div class="modal-container">
-            <div class="modal">
-                <form class="login" id="login">
-                    <label for="username">Set your username</label>
-                    <input autocomplete="off" type="text" id="username" class="username">
-                    <button type="submit" class="send">Enter</button>
-                </form>
-            </div>
-        </div>
         <!-- Container for available user list -->
-        <div class="chats-list">
+        <div class="chats-list" id="chats-list">
 
             <span class="chats-list-title">
                 Chats
             </span>
 
-            <div class="chat">
+            <div class="chat focus">
                 <h1 class="chat-user">
                     <span class="status active"></span>
                     GENERAL 🌎
@@ -43,127 +43,6 @@
                     numquam soluta pariatur.
                 </span>
             </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status active"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status new"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat focus">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
-            <div class="chat">
-                <h1 class="chat-user">
-                    <span class="status inactive"></span>
-                    Username
-                </h1>
-                <span class="message-preview">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
-                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
-                    numquam soluta pariatur.
-                </span>
-            </div>
-
 
         </div>
 
