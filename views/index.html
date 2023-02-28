@@ -13,9 +13,18 @@
 <body>
     <header>
         <h1 class="project-name"><strong>Socket.io</strong> - Real Time Chat </h1>
-        <span class="repo"><a href="#">GitHub Source</a></span>
+        <span class="repo"><a href="https://github.com/GJZ26/Socket-io-chat" target="">GitHub Source</a></span>
     </header>
     <main>
+        <div class="modal-container">
+            <div class="modal">
+                <form class="login" id="login">
+                    <label for="username">Set your username</label>
+                    <input autocomplete="off" type="text" id="username" class="username">
+                    <button type="submit" class="send">Enter</button>
+                </form>
+            </div>
+        </div>
         <!-- Container for available user list -->
         <div class="chats-list">
 
@@ -163,7 +172,8 @@
             <div id="message-container" class="message-container">
             </div>
             <div class="message-controls" id="message-form">
-                <input id="text-input" type="text" class="text-input" placeholder="Type your message">
+                <input id="text-input" autocomplete="off" type="text" class="text-input"
+                    placeholder="Type your message">
                 <input id="files" hidden type="file" class="attach" accept="image/png, image/jpeg">
                 <button id="file-btn" class="attach">Upload</button>
                 <input id="send" type="submit" class="send" value="Send">

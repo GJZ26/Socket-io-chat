@@ -43,26 +43,34 @@ function sendMessage(event) {
     message_meta_info.classList.add("mine");
     message_meta_info.textContent = `You - ${info.date}`;
 
+
     bubble_message.classList.add("message");
     bubble_message.classList.add("self");
     bubble_message.textContent = info.message;
+
 
     if (tags.length > 0) {
         allMessage.removeChild(tags[0])
     }
 
-    allMessage.appendChild(bubble_message)
-    allMessage.appendChild(message_meta_info);
-
-    if(data.img !== undefined){
+    if (info.img !== undefined) {
         const imagen = document.createElement("img")
+        imagen.classList.add("attach")
+        imagen.classList.add("self")
         imagen.src = info.img
         allMessage.appendChild(imagen)
     }
 
+    if (info.message !== "") {
+        allMessage.appendChild(bubble_message)
+        allMessage.appendChild(message_meta_info);
+    }
+
+
     // Restableciendo scroll y contenido del input
+    fileTrigger.classList.toggle('attached');
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
-    message.textContent = "";
+    message.value = null;
     DataURL = undefined
 }
 
@@ -94,8 +102,8 @@ socket.on("message", (data) => {
     const bubble_message = document.createElement("div");
     const message_meta_info = document.createElement("span")
     const tags = document.getElementsByClassName("author")
-    
-    
+
+
     message_meta_info.classList.add("author");
     message_meta_info.textContent = `${data.user} - ${data.date}`;
 
@@ -106,24 +114,38 @@ socket.on("message", (data) => {
     if (tags.length > 0) {
         allMessage.removeChild(tags[0])
     }
-    
-    allMessage.appendChild(bubble_message)
-    allMessage.appendChild(message_meta_info);
-    
-    if(data.img !== undefined){
+
+    if (data.img !== undefined) {
         const imagen = document.createElement("img")
+        imagen.classList.add("attach")
+        imagen.classList.add("receive")
         imagen.src = data.img
         allMessage.appendChild(imagen)
     }
 
+    if (data.message !== "") {
+        allMessage.appendChild(bubble_message)
+        allMessage.appendChild(message_meta_info);
+    }
+
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
 })
+
+function changeRoom(element){
+    const focus = document.getElementsByClassName('focus')
+    focus[0].classList.toggle('focus')
+    element.classList.toggle('focus')
+}
 
 socket.on("disconnect", () => {
     log.textContent = "No server connection"
 })
 
 socket.on("connect", () => {
+    const chats = document.getElementsByClassName('chat');
+    for(let i = 0; i < chats.length ; i++){
+        chats[i].addEventListener('click',()=>{changeRoom(chats[i])})
+    }
     log.textContent = "Connection established"
 })
 
@@ -151,5 +173,6 @@ attach.addEventListener('change', (e) => {
         log.textContent = `File ${attach.files[0].name} successfully attached`
         // Logs wL2dvYWwgbW9yZ...
     };
+    fileTrigger.classList.toggle('attached');
     reader.readAsDataURL(file);
 });

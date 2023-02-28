@@ -14,6 +14,8 @@ const port = 3000;
 const dir = process.cwd() // <- Para almacenar directorio raíz del proyecto,
                           //    sin tener que usar __dirname de CommonJS
 
+const users = {}
+
 app.get("/style.css",(req,res)=>{
     res.sendFile(dir + "/views/style.css")
 })
@@ -28,12 +30,9 @@ app.get("/",(req,res)=>{
 
 io.on('connection',(socket)=>{
     console.log("A user connect");
-    console.log(socket.id)
     socket.on("message",(msg)=>{
-
         socket.broadcast.emit("message",msg)
     })
-
 })
 
 
