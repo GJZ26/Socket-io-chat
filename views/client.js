@@ -5,7 +5,12 @@ const socket = io();
 const send = document.getElementById("send");
 const message = document.getElementById("text-input");
 const fileTrigger = document.getElementById("file-btn");
+
+let DataURL;
+
+/** @type {HTMLInputElement} */
 const attach = document.getElementById("files");
+
 const allMessage = document.getElementById("message-container");
 const form = document.getElementById("message-form")
 
@@ -14,10 +19,9 @@ const log = document.getElementById("log");
 
 function sendMessage(event) {
     event.preventDefault();
+    const content = message.value.trim()
 
-    let content = message.value
-
-    if (content.trim() == "") {
+    if (content.trim() == "" && DataURL == undefined) {
         return
     }
 
@@ -29,12 +33,13 @@ function sendMessage(event) {
     let info = {
         user: "Juano Perez",
         date: `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`,
-        message: content
+        message: content,
+        img: DataURL
     }
 
     socket.emit("message", info)
 
-
+    console.log(DataURL)
     message_meta_info.classList.add("mine");
     message_meta_info.textContent = `You - ${info.date}`;
 
@@ -49,19 +54,48 @@ function sendMessage(event) {
     allMessage.appendChild(bubble_message)
     allMessage.appendChild(message_meta_info);
 
-    // Reestableciendo scroll y contenido del input
+    if(data.img !== undefined){
+        const imagen = document.createElement("img")
+        imagen.src = info.img
+        allMessage.appendChild(imagen)
+    }
+
+    // Restableciendo scroll y contenido del input
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
-    message.value = null;
+    message.textContent = "";
+    DataURL = undefined
 }
 
+/*
+    
+*/
+function readFile(event, file) {
+    log.textContent = `File ${file.name} attached`
+    return event.target.result;
+}
 
+/*
+    Cambia de tipo Object[file] de los inputs File, a Blob (Binarios)
+*/
+function changeFile() {
+    const file = attach.files[0];
+    const reader = new FileReader();
+
+    log.textContent = `Uploading: ${file.name}`
+    let bins;
+
+    reader.addEventListener('load', (e) => { bins = readFile(e, file) });
+    reader.readAsText(file);
+    console.log(bins)
+}
 
 
 socket.on("message", (data) => {
     const bubble_message = document.createElement("div");
     const message_meta_info = document.createElement("span")
     const tags = document.getElementsByClassName("author")
-
+    
+    
     message_meta_info.classList.add("author");
     message_meta_info.textContent = `${data.user} - ${data.date}`;
 
@@ -72,9 +106,15 @@ socket.on("message", (data) => {
     if (tags.length > 0) {
         allMessage.removeChild(tags[0])
     }
-
+    
     allMessage.appendChild(bubble_message)
     allMessage.appendChild(message_meta_info);
+    
+    if(data.img !== undefined){
+        const imagen = document.createElement("img")
+        imagen.src = data.img
+        allMessage.appendChild(imagen)
+    }
 
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
 })
@@ -87,12 +127,29 @@ socket.on("connect", () => {
     log.textContent = "Connection established"
 })
 
-send.addEventListener("click",(e)=>{
+send.addEventListener("click", (e) => {
     sendMessage(e);
 })
 
-message.addEventListener('keypress',(e)=>{
-    if(e.keyCode == 13) sendMessage(e)
+message.addEventListener('keypress', (e) => {
+    if (e.keyCode == 13) sendMessage(e)
 })
 
-fileTrigger.addEventListener('click',()=> attach.click())
+fileTrigger.addEventListener('click', () => attach.click())
+
+attach.addEventListener('change', (e) => {
+    // Get a reference to the file
+    const file = e.target.files[0];
+    log.textContent = `Uploading ${attach.files[0].name} to attach`
+
+    // Encode the file using the FileReader API
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        // Use a regex to remove data url part
+        DataURL = reader.result
+
+        log.textContent = `File ${attach.files[0].name} successfully attached`
+        // Logs wL2dvYWwgbW9yZ...
+    };
+    reader.readAsDataURL(file);
+});
