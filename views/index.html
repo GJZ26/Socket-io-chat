@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <title>Socket.io - Real Time Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="project-name"><strong>Socket.io</strong> - Real Time Chat </h1>
+        <span class="repo"><a href="#">GitHub Source</a></span>
+    </header>
+    <main>
+        <!-- Container for available user list -->
+        <div class="chats-list">
+
+            <span class="chats-list-title">
+                Chats
+            </span>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status active"></span>
+                    GENERAL 🌎
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status active"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status new"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat focus">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+            <div class="chat">
+                <h1 class="chat-user">
+                    <span class="status inactive"></span>
+                    Username
+                </h1>
+                <span class="message-preview">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe labore culpa dolor velit earum vitae
+                    quo, ipsa exercitationem iusto voluptates maiores ipsam esse porro, deleniti deserunt! Repudiandae
+                    numquam soluta pariatur.
+                </span>
+            </div>
+
+
+        </div>
+
+        <!-- Container for current ative chat -->
+        <div class="active-chat">
+            <div id="message-container" class="message-container">
+            </div>
+            <div class="message-controls" id="message-form">
+                <input id="text-input" type="text" class="text-input" placeholder="Type your message">
+                <input id="files" hidden onclick="()=>{}" type="file" class="attach">
+                <button id="file-btn" class="attach">Upload</button>
+                <input id="send" type="submit" class="send" value="Send">
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <span class="log" id="log"><strong>Event</strong>: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Expedita,
+            velit maiores laudantium repudiandae nobis minus neque laborum optio enim voluptates quae, ducimus dolorem
+            quam culpa doloremque sed placeat. Deserunt, ex!</span>
+        <span class="version">v.0.0.1</span>
+    </footer>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/client.js" type="module"></script>
+
+</html>
