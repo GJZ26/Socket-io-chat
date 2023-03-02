@@ -111,8 +111,8 @@ function render(info) {
 
 function loadChat(room) {
     allMessage.innerHTML = ""
-    messageStack.map((msg)=>{
-        if(msg.room === room){
+    messageStack.map((msg) => {
+        if (msg.room === room) {
             render(msg)
         }
     })
@@ -120,12 +120,30 @@ function loadChat(room) {
 
 function saveMessages(dat) {
     messageStack.push(dat)
-    console.log(messageStack)
+    const chat = document.getElementById(dat.room)
+
+    if(chat.children[0].children[0].classList.contains("active") && dat.room !== room){
+        chat.children[0].children[0].classList.toggle("active")
+        chat.children[0].children[0].classList.toggle("new")
+    }
+
+    if (dat.img !== undefined) {
+        chat.children[1].textContent = `${dat.user} send a attachment`
+    } else {
+        chat.children[1].textContent = `${dat.user}: ${dat.message}`
+    }
+
     return room !== dat.room
 }
 
 function changeRoom(element) {
     const focus = document.getElementsByClassName('focus')
+
+    if(element.children[0].children[0].classList.contains("new")){
+        element.children[0].children[0].classList.toggle("new")
+        element.children[0].children[0].classList.add("active")
+    }
+
     if (focus.length > 0) {
         focus[0].classList.toggle('focus')
     }
