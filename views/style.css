@@ -1,26 +1,26 @@
 /* COLORS DECLARATION */
-:root{
+:root {
     --primary-color: rgb(76, 76, 255);
     --primary-hover: rgb(51, 51, 253);
     --text-color: rgb(236, 236, 236);
-    --second-text-color:rgb(199, 199, 199);
-    --third-text-color:rgb(183, 183, 183);
+    --second-text-color: rgb(199, 199, 199);
+    --third-text-color: rgb(183, 183, 183);
     --main-bg: rgb(3, 3, 3);
     --second-bg: rgb(32, 32, 32);
     --third-bg: rgb(44, 44, 44);
-    --self-message:hsl(203, 74%, 30%);
+    --self-message: hsl(203, 74%, 30%);
     --received-message: hsl(150, 74%, 30%);
     --active-status: rgb(0, 255, 0);
     --new-status: rgb(255, 30, 0);
     --inactive-status: rgb(105, 105, 105);
-    --dark-text-color:rgb(255, 246, 246);
+    --dark-text-color: rgb(255, 246, 246);
     --link-text-color: rgb(255, 255, 255);
     --white-not-too-white: rgba(126, 126, 126, 0.563);
     --scroll-rail-color: rgb(67, 67, 67);
-    --scroll-thumb-color:rgb(135, 135, 135);
+    --scroll-thumb-color: rgb(135, 135, 135);
     --chat-container: rgb(60, 60, 60);
     --message-container: rgb(41, 41, 41);
-    --attach-active:rgb(0 86 149);
+    --attach-active: rgb(0 86 149);
 }
 
 * {
@@ -31,14 +31,14 @@
 
 /* STYLES FOR GENERAL ELEMENTS */
 
-a{
- color: var(--text-color);
- font-weight: bold;
- text-decoration: none;
- text-shadow: 1px 1px 1px red;
+a {
+    color: var(--text-color);
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px red;
 }
 
-a:hover{
+a:hover {
     color: rgb(255, 242, 0);
 }
 
@@ -104,22 +104,26 @@ header {
     overflow-y: scroll;
 }
 
-.chats-list::-webkit-scrollbar,.message-container::-webkit-scrollbar {
+.chats-list::-webkit-scrollbar,
+.message-container::-webkit-scrollbar {
     width: 10px;
     border-radius: 12px;
 }
 
-.chats-list::-webkit-scrollbar-track,.message-container::-webkit-scrollbar-track {
+.chats-list::-webkit-scrollbar-track,
+.message-container::-webkit-scrollbar-track {
     background: var(--scroll-rail-color);
 }
 
-.chats-list::-webkit-scrollbar-thumb, .message-container::-webkit-scrollbar-thumb {
+.chats-list::-webkit-scrollbar-thumb,
+.message-container::-webkit-scrollbar-thumb {
     background-color: var(--white-not-too-white);
     border-radius: 20px;
     border: 3px solid var(--scroll-rail-color);
 }
 
-.chats-list::-webkit-scrollbar-thumb:hover, .message-container::-webkit-scrollbar-thumb:hover {
+.chats-list::-webkit-scrollbar-thumb:hover,
+.message-container::-webkit-scrollbar-thumb:hover {
     background-color: var(--scroll-thumb-color);
 }
 
@@ -139,7 +143,7 @@ header {
     border-bottom: 0.5px solid var(--white-not-too-white);
 }
 
-.chat:hover{
+.chat:hover {
     background-color: var(--third-bg);
     transition: all 100ms;
     cursor: pointer;
@@ -181,17 +185,17 @@ h1.chat-user {
     box-shadow: 0px 0px 5px var(--new-status);
 }
 
-.message-container{
+.message-container {
     border-radius: 8px 8px 0 0;
     display: flex;
     flex-direction: column;
     background-color: var(--message-container);
     height: 100%;
     overflow-y: scroll;
-    padding-top:12px
+    padding-top: 12px
 }
 
-.message-controls{
+.message-controls {
     background-color: var(--second-bg);
     display: flex;
     align-items: center;
@@ -200,7 +204,7 @@ h1.chat-user {
     padding: 0px 10px;
 }
 
-.message{
+.message {
     margin: 4px 20px 0px;
     border-radius: 10px;
     padding: 4px 8px;
@@ -208,19 +212,20 @@ h1.chat-user {
     color: var(--dark-text-color);
 }
 
-div.self{
+div.self {
     align-self: flex-end;
     background-color: var(--self-message);
     border-bottom-right-radius: 0;
 }
 
-div.receive{
+div.receive {
     align-self: flex-start;
-    background-color:var(--received-message);
+    background-color: var(--received-message);
     border-bottom-left-radius: 0;
 }
 
-.author, .mine{
+.author,
+.mine {
     color: var(--third-text-color);
     font-size: 12px;
     margin-left: 20px;
@@ -228,12 +233,12 @@ div.receive{
     margin-bottom: 5px;
 }
 
-.mine{
+.mine {
     align-self: flex-end;
     margin-right: 20px;
 }
 
-.text-input{
+.text-input {
     padding: 6px 10px;
     border-radius: 5px;
     border: none;
@@ -242,21 +247,21 @@ div.receive{
     margin-right: 3px;
 }
 
-button.attach{
+button.attach {
     border-radius: 3px;
-    border:none;
+    border: none;
     padding: 4px 16px;
     margin: 0 6px;
     background-color: var(--inactive-status);
     color: var(--text-color);
 }
 
-button.attach:hover{
+button.attach:hover {
     background-color: var(--scroll-thumb-color);
     cursor: pointer;
 }
 
-.send{
+.send {
     cursor: pointer;
     padding: 4px 22px;
     font-weight: bold;
@@ -266,35 +271,36 @@ button.attach:hover{
     color: var(--text-color);
 }
 
-.send:hover{
+.send:hover {
     background-color: var(--primary-hover);
 }
 
-.log,.version{
+.log,
+.version {
 
     font-size: 12px;
 }
 
-.log{
+.log {
     overflow: hidden;
     max-width: 500px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.version{
+.version {
     margin-right: 12px;
 }
 
-.focus{
+.focus {
     background-color: rgba(0, 247, 255, 0.377);
 }
 
-button.attached{
+button.attached {
     background-color: var(--attach-active);
 }
 
-.modal-container{
+.modal-container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -304,7 +310,7 @@ button.attached{
     backdrop-filter: blur(3px);
 }
 
-.login{
+.login {
     color: var(--text-color);
     background-color: var(--second-bg);
     display: flex;
@@ -314,7 +320,7 @@ button.attached{
     border-radius: 12px;
 }
 
-.username{
+.username {
     margin: 15px 0px;
     border: none;
     border-radius: 4px;
@@ -323,12 +329,19 @@ button.attached{
     font-size: 18px;
 }
 
-.focus:hover{
+.focus:hover {
     background-color: rgba(0, 247, 255, 0.527);
 }
 
-.img{
+.img {
     width: 45%;
     height: 45%;
-    object-fit: cover;
+}
+
+.imagen {
+    width: 230px;
+    height: 230px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

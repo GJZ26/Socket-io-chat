@@ -10,8 +10,11 @@ const instruction = document.getElementById("instruction");
 const username = document.getElementById("username");
 const popup = document.getElementById("modal");
 const chats = document.getElementById("chats-list")
+let messageStack = []
+let messageRendered = {}
 
 let DataURL;
+let room;
 
 /** @type {HTMLInputElement} */
 const attach = document.getElementById("files");
@@ -23,6 +26,10 @@ const log = document.getElementById("log");
 
 
 function sendMessage(event) {
+    if (room == undefined) {
+        message.value = null;
+        log.textContent = "No room selected"
+    }
     event.preventDefault();
     const content = message.value.trim()
 
@@ -38,7 +45,8 @@ function sendMessage(event) {
     let info = {
         date: `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`,
         message: content,
-        img: DataURL
+        img: DataURL,
+        room: room
     }
 
     socket.emit("message", info)
@@ -58,16 +66,23 @@ function sendMessage(event) {
     }
 
     if (info.img !== undefined) {
-        const imagen = document.createElement("img")
+        const imagen = document.createElement("div")
+        const bubble_image = document.createElement("div")
+        bubble_image.classList.add("message");
+        bubble_image.classList.add("self");
+        bubble_image.classList.add("img");
+        imagen.classList.add("imagen")
 
-        imagen.src = info.img
-        allMessage.appendChild(imagen)
+        imagen.style.backgroundImage = `url(${info.img})`
+        bubble_image.appendChild(imagen)
+        allMessage.appendChild(bubble_image)
     }
 
     if (info.message !== "") {
         allMessage.appendChild(bubble_message)
-        allMessage.appendChild(message_meta_info);
     }
+
+    allMessage.appendChild(message_meta_info);
 
 
     // Restableciendo scroll y contenido del input
@@ -100,11 +115,23 @@ function changeFile() {
     console.log(bins)
 }
 
+/** Carga los mensajes según la sala y actualiza el stack de mensajes renderizados */
+function loadChat(mensajotos) {
+
+}
+
+socket.on('private',(data)=>{
+    if(data.room !== room){
+        loadChat(data)
+    }
+})
 
 socket.on("message", (data) => {
+    if(data.room !== room){
+        loadChat(data)
+    }
     const bubble_message = document.createElement("div");
     const message_meta_info = document.createElement("span")
-    const tags = document.getElementsByClassName("author")
 
 
     message_meta_info.classList.add("author");
@@ -116,29 +143,35 @@ socket.on("message", (data) => {
 
 
     if (data.img !== undefined) {
-        const imagen = document.createElement("img")
+        const imagen = document.createElement("div")
         const bubble_image = document.createElement("div")
         bubble_image.classList.add("message");
         bubble_image.classList.add("receive");
         bubble_image.classList.add("img");
+        imagen.classList.add("imagen")
 
-        imagen.src = data.img
+        imagen.style.backgroundImage = `url(${data.img})`
         bubble_image.appendChild(imagen)
         allMessage.appendChild(bubble_image)
     }
 
     if (data.message !== "") {
         allMessage.appendChild(bubble_message)
-        allMessage.appendChild(message_meta_info);
     }
 
+    allMessage.appendChild(message_meta_info);
     allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
 })
 
 function changeRoom(element) {
     const focus = document.getElementsByClassName('focus')
-    focus[0].classList.toggle('focus')
+    if (focus.length > 0) {
+        focus[0].classList.toggle('focus')
+    }
     element.classList.toggle('focus')
+
+    room = element.id
+    socket.emit('loadchat', room)
 }
 
 function enter(e) {
@@ -189,7 +222,7 @@ socket.on("register", (info) => {
     chats.appendChild(cht)
 })
 
-socket.on("left",(info)=>{
+socket.on("left", (info) => {
     console.log(info)
     const cha = document.getElementById(info.socket)
     chats.removeChild(cha)
