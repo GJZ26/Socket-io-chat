@@ -10,7 +10,7 @@
     --third-bg: rgb(44, 44, 44);
     --self-message: hsl(203, 74%, 30%);
     --received-message: hsl(150, 74%, 30%);
-    --active-status: rgb(141, 10, 255);
+    --active-status: rgb(138, 138, 138);
     --new-status: rgb(255, 0, 0);
     --inactive-status: rgb(105, 105, 105);
     --dark-text-color: rgb(255, 246, 246);
@@ -181,7 +181,7 @@ h1.chat-user {
 
 .new {
     background-color: var(--new-status);
-    animation: 2s blink infinite;
+    animation: 1s blink infinite;
 }
 
 .message-container {
