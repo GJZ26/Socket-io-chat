@@ -93,7 +93,7 @@ io.on('connection', (socket) => {
             date: msg.date,
             img: msg.img,
             user: users[socket.id].username,
-            room: msg.room
+            room: socket.id
         })
     })
 
