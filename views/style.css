@@ -333,13 +333,18 @@ button.attached {
 }
 
 .img {
-    width: 45%;
-    height: 45%;
+    max-width: 45%;
+    max-height: 45%;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .imagen {
-    width: 230px;
-    height: 230px;
+    min-width: 230px;
+    min-height: 230px;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;

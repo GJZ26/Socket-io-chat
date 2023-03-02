@@ -107,6 +107,7 @@ function render(info) {
     }
 
     allMessage.appendChild(message_meta_info);
+    allMessage.scrollTop = allMessage.scrollHeight - allMessage.clientHeight
 }
 
 function loadChat(room) {
@@ -122,7 +123,7 @@ function saveMessages(dat) {
     messageStack.push(dat)
     const chat = document.getElementById(dat.room)
 
-    if(chat.children[0].children[0].classList.contains("active") && dat.room !== room){
+    if (chat.children[0].children[0].classList.contains("active") && dat.room !== room) {
         chat.children[0].children[0].classList.toggle("active")
         chat.children[0].children[0].classList.toggle("new")
     }
@@ -139,7 +140,7 @@ function saveMessages(dat) {
 function changeRoom(element) {
     const focus = document.getElementsByClassName('focus')
 
-    if(element.children[0].children[0].classList.contains("new")){
+    if (element.children[0].children[0].classList.contains("new")) {
         element.children[0].children[0].classList.toggle("new")
         element.children[0].children[0].classList.add("active")
     }
@@ -218,10 +219,39 @@ socket.on('disconnect', () => {
 })
 
 socket.on('left', (info) => {
-    console.log(info)
     const cha = document.getElementById(info.socket)
-    chats.removeChild(cha)
+    if (cha) {
+        chats.removeChild(cha)
+    }
     log.textContent = `${info.username} left`
+})
+
+socket.on('users', (data) => {
+    for (const key in data) {
+        const cht = document.createElement('div')
+        cht.classList.add('chat')
+        cht.id = data[key].socket
+
+        const stt = document.createElement('span')
+        stt.classList.add('status')
+        stt.classList.add('active')
+
+        const usr = document.createElement('h1')
+        usr.classList.add('chat-user')
+        usr.appendChild(stt)
+        usr.append(data[key].username)
+
+        const msg = document.createElement('span')
+        msg.classList.add('message-preview')
+        msg.textContent = data[key].lastMessage
+
+        cht.appendChild(usr)
+        cht.appendChild(msg)
+
+        cht.onclick = () => changeRoom(cht)
+
+        chats.appendChild(cht)
+    }
 })
 
 send.addEventListener('click', (e) => {

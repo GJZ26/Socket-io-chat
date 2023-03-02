@@ -17,38 +17,6 @@ const dir = process.cwd() // <- Para almacenar directorio raíz del proyecto,
 const users = {}
 const clients = {}
 
-class Content {
-    /** @type {Array} */
-    contn
-
-    constructor() {
-        this.contn = new Array()
-    }
-    addContent(message, file, username, date) {
-        this.contn.push({ message: message, file: file, username: username, date: date })
-    }
-    getContn() {
-        return this.contn
-    }
-}
-
-class Log {
-    log = {};
-
-    constructor(room) {
-        this.log[room] = new Content()
-    }
-
-    addLog(room, mensaje, date, username, file) {
-        console.log(this.log[room])
-        this.log[room].addContent(mensaje, file, username, date)
-    }
-
-    getLogs(room) {
-        return this.log[room]
-    }
-}
-
 /*
     Chat -
         Usuario 1
@@ -76,6 +44,8 @@ app.get("/", (req, res) => {
 
 io.on('connection', (socket) => {
     console.log("A user connect");
+
+    socket.emit('users', users)
 
     socket.on("message", (msg) => {
         if (msg.room == "general") {
