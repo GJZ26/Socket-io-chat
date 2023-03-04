@@ -97,9 +97,7 @@ io.on('connection', (socket) => {
 
     socket.on('loadchat', (room) => {
         if (room == "general") {
-            console.log(room)
         } else {
-            console.log(users[room].username)
         }
     })
 
